@@ -1,0 +1,124 @@
+//bubble
+include <iostream>
+  
+void bubble_sort(int* arr, int size) {
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size - i - 1; ++j) {
+                 if (arr[j] > arr[j + 1]) {
+                     std::swap(arr[j], arr[j + 1]);
+                 }
+        }
+    }
+}
+
+void print_array(int* arr, int size) {
+     for (int i = 0; i < size; ++i) {
+         std::cout << arr[i] << " ";
+     }
+     std::cout << std::endl;
+}
+int main() {
+    int arr[] = {1, 7, 4, 8, 12, 22, 23, 17};
+    print_array(arr, 8);
+    bubble_sort(arr, 8);
+    print_array(arr, 8);
+}
+//insertion
+#include <iostream>
+  
+void insertion_sort(int* arr, int size) {
+     for (int i = 1; i < size; ++i) {
+         int j = i;
+         int temp = arr[j];
+         while (temp < arr[j - 1] && j > 0) {
+             std::swap(arr[j], arr[j - 1]);
+             --j;
+         }
+     }
+}
+
+void print_array(int* arr, int size) {
+     for (int i = 0; i < size; ++i) {
+         std::cout << arr[i] << " ";
+     }
+     std::cout << std::endl;
+}
+
+int main() {
+    int arr[] = {1, 7, 4, -18, 12, 22, -23, 17, 20, 98};
+    print_array(arr, 10);
+    insertion_sort(arr, 10);
+    print_array(arr, 10);
+}
+
+//merge
+#include <iostream>
+#include <limits>
+
+void merge(int* arr, int start, int mid, int end) {
+     int lsize = mid - start + 1;
+     int rsize = end - mid;
+     int arr_left[lsize + 1];
+     int arr_right[rsize + 1];
+     int ii = 0;
+     for (int i = start; i <= mid; ++i) {
+         arr_left[ii++] = arr[i];
+     }
+     ii = 0;
+     for (int i = mid + 1; i <= end; ++i) {
+         arr_right[ii++] = arr[i];
+     }
+     arr_left[lsize] = arr_right[rsize] = std::numeric_limits<int>::max();
+     for (int i = 0, j = 0, ind = start; i + j < end - start + 1; ++ind) {
+         arr[ind] = arr_left[i] < arr_right[j] ? arr_left[i++] : arr_right[j++];
+     }
+}
+void merge_sort(int* arr, int start, int end) {
+     if (start >= end) { return;}
+     int mid = start + (end - start) / 2;
+     merge_sort(arr, start, mid);
+     merge_sort(arr, mid + 1, end);
+     merge(arr, start, mid, end);
+}
+
+void print_array(int* arr, int size) {
+     for (int i = 0; i < size; ++i) {
+         std::cout << arr[i] << " ";
+     }
+     std::cout << std::endl;
+}
+int main() {
+    int arr[] = {1, 7, 4, 8, 12, 22, 23, 17};
+    print_array(arr, 8);
+    merge_sort(arr, 0, 7);
+    print_array(arr, 8);
+}
+//selection
+#include <iostream>
+  
+void selection_sort(int* arr, int size) {
+     for (int i = 0; i < size; ++i) {
+           int max = arr[0];
+           int pos = 0;
+         for (int j = 0; j < size - i; ++j) {
+              if (arr[j] > max) {
+                   max = arr[j];
+                   pos = j;
+              }
+         }
+         std::swap(arr[pos], arr[size - i - 1]);
+      }
+}
+void print_array(int* arr, int size) {
+     for (int i = 0; i < size; ++i) {
+         std::cout << arr[i] << " ";
+     }
+     std::cout << std::endl;
+}
+
+int main() {
+    int arr[] = {1, 7, 4, 8, 12, 22, 23, 17};
+    print_array(arr, 8);
+    selection_sort(arr, 8);
+    print_array(arr, 8);
+}
